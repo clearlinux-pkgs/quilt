@@ -6,7 +6,7 @@
 #
 Name     : quilt
 Version  : 0.65
-Release  : 9
+Release  : 10
 URL      : http://download.savannah.gnu.org/releases/quilt/quilt-0.65.tar.gz
 Source0  : http://download.savannah.gnu.org/releases/quilt/quilt-0.65.tar.gz
 Source99 : http://download.savannah.gnu.org/releases/quilt/quilt-0.65.tar.gz.sig
