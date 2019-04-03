@@ -5,21 +5,21 @@
 # Source0 file verified with key 0x865688D038F02FC8 (jdelvare@suse.de)
 #
 Name     : quilt
-Version  : 0.65
-Release  : 11
-URL      : http://download.savannah.gnu.org/releases/quilt/quilt-0.65.tar.gz
-Source0  : http://download.savannah.gnu.org/releases/quilt/quilt-0.65.tar.gz
-Source99 : http://download.savannah.gnu.org/releases/quilt/quilt-0.65.tar.gz.sig
-Summary  : No detailed summary available
+Version  : 0.66
+Release  : 12
+URL      : http://download.savannah.gnu.org/releases/quilt/quilt-0.66.tar.gz
+Source0  : http://download.savannah.gnu.org/releases/quilt/quilt-0.66.tar.gz
+Source99 : http://download.savannah.gnu.org/releases/quilt/quilt-0.66.tar.gz.sig
+Summary  : Manage a series of patches by keeping track of the changes each patch makes
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: quilt-bin
-Requires: quilt-doc
-Requires: quilt-data
-Requires: quilt-locales
+Requires: quilt-bin = %{version}-%{release}
+Requires: quilt-data = %{version}-%{release}
+Requires: quilt-license = %{version}-%{release}
+Requires: quilt-locales = %{version}-%{release}
+Requires: quilt-man = %{version}-%{release}
 BuildRequires : ed
 BuildRequires : util-linux
-Patch1: 0001-test-Escape-curly-braces-in-regex.patch
 
 %description
 The scripts allow to manage a series of patches by keeping
@@ -37,7 +37,8 @@ Authors:
 %package bin
 Summary: bin components for the quilt package.
 Group: Binaries
-Requires: quilt-data
+Requires: quilt-data = %{version}-%{release}
+Requires: quilt-license = %{version}-%{release}
 
 %description bin
 bin components for the quilt package.
@@ -54,9 +55,18 @@ data components for the quilt package.
 %package doc
 Summary: doc components for the quilt package.
 Group: Documentation
+Requires: quilt-man = %{version}-%{release}
 
 %description doc
 doc components for the quilt package.
+
+
+%package license
+Summary: license components for the quilt package.
+Group: Default
+
+%description license
+license components for the quilt package.
 
 
 %package locales
@@ -67,18 +77,25 @@ Group: Default
 locales components for the quilt package.
 
 
+%package man
+Summary: man components for the quilt package.
+Group: Default
+
+%description man
+man components for the quilt package.
+
+
 %prep
-%setup -q -n quilt-0.65
-%patch1 -p1
+%setup -q -n quilt-0.66
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1503429775
+export SOURCE_DATE_EPOCH=1554253606
 %configure --disable-static
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
 %check
 export LANG=C
@@ -88,8 +105,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1503429775
+export SOURCE_DATE_EPOCH=1554253606
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/quilt
+cp COPYING %{buildroot}/usr/share/package-licenses/quilt/COPYING
 %make_install
 %find_lang quilt
 
@@ -145,9 +164,17 @@ rm -rf %{buildroot}
 /usr/share/quilt/upgrade
 
 %files doc
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 %doc /usr/share/doc/quilt/*
-%doc /usr/share/man/man1/*
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/quilt/COPYING
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/guards.1
+/usr/share/man/man1/quilt.1
 
 %files locales -f quilt.lang
 %defattr(-,root,root,-)
