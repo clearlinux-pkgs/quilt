@@ -6,11 +6,11 @@
 #
 Name     : quilt
 Version  : 0.66
-Release  : 12
-URL      : http://download.savannah.gnu.org/releases/quilt/quilt-0.66.tar.gz
-Source0  : http://download.savannah.gnu.org/releases/quilt/quilt-0.66.tar.gz
-Source99 : http://download.savannah.gnu.org/releases/quilt/quilt-0.66.tar.gz.sig
-Summary  : Manage a series of patches by keeping track of the changes each patch makes
+Release  : 13
+URL      : https://download.savannah.gnu.org/releases/quilt/quilt-0.66.tar.gz
+Source0  : https://download.savannah.gnu.org/releases/quilt/quilt-0.66.tar.gz
+Source1  : https://download.savannah.gnu.org/releases/quilt/quilt-0.66.tar.gz.sig
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
 Requires: quilt-bin = %{version}-%{release}
@@ -87,28 +87,34 @@ man components for the quilt package.
 
 %prep
 %setup -q -n quilt-0.66
+cd %{_builddir}/quilt-0.66
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1554253606
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604085461
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1554253606
+export SOURCE_DATE_EPOCH=1604085461
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/quilt
-cp COPYING %{buildroot}/usr/share/package-licenses/quilt/COPYING
+cp %{_builddir}/quilt-0.66/COPYING %{buildroot}/usr/share/package-licenses/quilt/dfac199a7539a404407098a2541b9482279f690d
 %make_install
 %find_lang quilt
 
@@ -169,7 +175,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/quilt/COPYING
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/quilt/COPYING
+/usr/share/package-licenses/quilt/dfac199a7539a404407098a2541b9482279f690d
 
 %files man
 %defattr(0644,root,root,0755)
