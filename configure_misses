@@ -1,8 +1,8 @@
+Configure miss: 7z
+Configure miss: 7za
+Configure miss: 7zr
+Configure miss: diffstat
 Configure miss: gcp
 Configure miss: gdate
-Configure miss: diffstat
-Configure miss: sendmail
 Configure miss: gmd5sum
-Configure miss: 7zr
-Configure miss: 7za
-Configure miss: 7z
+Configure miss: sendmail
