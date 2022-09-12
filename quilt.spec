@@ -6,7 +6,7 @@
 #
 Name     : quilt
 Version  : 0.67
-Release  : 14
+Release  : 15
 URL      : https://download.savannah.gnu.org/releases/quilt/quilt-0.67.tar.gz
 Source0  : https://download.savannah.gnu.org/releases/quilt/quilt-0.67.tar.gz
 Source1  : https://download.savannah.gnu.org/releases/quilt/quilt-0.67.tar.gz.sig
@@ -20,6 +20,7 @@ Requires: quilt-locales = %{version}-%{release}
 Requires: quilt-man = %{version}-%{release}
 BuildRequires : ed
 BuildRequires : util-linux
+Patch1: backport-Avoid-warnings-with-grep-3.8.patch
 
 %description
 The scripts allow to manage a series of patches by keeping
@@ -88,13 +89,14 @@ man components for the quilt package.
 %prep
 %setup -q -n quilt-0.67
 cd %{_builddir}/quilt-0.67
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1645032182
+export SOURCE_DATE_EPOCH=1663010688
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -111,10 +113,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1645032182
+export SOURCE_DATE_EPOCH=1663010688
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/quilt
-cp %{_builddir}/quilt-0.67/COPYING %{buildroot}/usr/share/package-licenses/quilt/dfac199a7539a404407098a2541b9482279f690d
+cp %{_builddir}/quilt-%{version}/COPYING %{buildroot}/usr/share/package-licenses/quilt/dfac199a7539a404407098a2541b9482279f690d
 %make_install
 %find_lang quilt
 
