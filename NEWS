@@ -1,4 +1,18 @@
-Version 0.67 (Tue Feb 25 2022)
+Version 0.68 (Wed Mar 27 2024)
+  - Add support for zstd archives
+  - Documentation: Massive formatting update of the manual page
+  - Documentation: Reword some sections of the manual page
+  - Fix compatibility with BSD awk
+  - Fix compatibility with GNU awk version 5.0.0 and later
+  - Fix compatibility with GNU grep version 3.8 and later
+  - Fix compatibility with Solaris ln (#63451)
+  - Installation: Fix multiple issues in install-sh (#64430)
+  - Test suite: Fix various race conditions (#63651)
+  - patches: Find file name with a space in unapplied patches (#41708)
+  - pop: Hint at diff -z on failure
+  - setup: Document the limitation of spec file support
+
+Version 0.67 (Tue Feb 15 2022)
   - Call pager with original LANG environment variable
   - Consistently complain early if no series file is found
   - Fix handling of symbolic links by several commands
