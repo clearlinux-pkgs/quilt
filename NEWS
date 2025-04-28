@@ -1,3 +1,12 @@
+Version 0.69 (Sat Apr 26 2025)
+  - Fix escaping of % and backslash in patch names
+  - Fix exit operator precedence error in perl scripts
+  - new: Stop claiming support of option -p ab
+  - patches: Several performance optimizations
+  - series: Simplify the code
+  - setup: Fix compatibility with rpm version 4.20
+  - setup: New option --spec-filter
+
 Version 0.68 (Wed Mar 27 2024)
   - Add support for zstd archives
   - Documentation: Massive formatting update of the manual page
